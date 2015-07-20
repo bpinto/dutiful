@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.version     = Dutiful::VERSION
   s.license     = 'MIT'
   s.authors     = ['Bruno Pinto']
+  s.email       = 'brunoferreirapinto@gmail.com'
   s.homepage    = 'http://github.com/bpinto/dutiful'
   s.summary     = "dutiful-#{Dutiful::VERSION}"
   s.description = 'Dotfiles manager'
