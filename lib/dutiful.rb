@@ -1,6 +1,7 @@
 require 'dutiful/application'
 require 'dutiful/file'
 require 'dutiful/version'
+require 'dutiful/storages'
 require 'optparse'
 require 'tomlrb'
 
@@ -17,6 +18,9 @@ module Dutiful
         end
 
         opts.on('-l', '--list', 'List all preference files') do
+          puts "Storage: #{storage.name}"
+          puts
+
           Dir.foreach('db') do |filename|
             next if filename == '.' or filename == '..'
 
@@ -43,6 +47,12 @@ module Dutiful
           exit
         end
       end.parse!
+    end
+
+    def self.storage
+      @storage ||= if Dutiful::Storage::Icloud.available?
+                     Dutiful::Storage::Icloud
+                   end
     end
   end
 end

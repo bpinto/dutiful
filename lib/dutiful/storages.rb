@@ -1,0 +1,1 @@
+require 'dutiful/storages/icloud'

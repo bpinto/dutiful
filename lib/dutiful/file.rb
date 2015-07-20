@@ -1,6 +1,6 @@
 module Dutiful
   class File
-    attr_reader :path
+    attr_reader :full_path, :path
 
     def initialize(path)
       @path      = path
@@ -12,7 +12,7 @@ module Dutiful
     end
 
     def synced?
-      exists?
+      Dutiful::Runner.storage.exists?(self) && Dutiful::Runner.storage.synced?(self)
     end
   end
 end
