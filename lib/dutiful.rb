@@ -21,7 +21,7 @@ module Dutiful
             next if filename == '.' or filename == '..'
 
             application = Dutiful::Application.new "db/#{filename}"
-            puts application
+            puts application if application.exists?
           end
         end
 

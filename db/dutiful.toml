@@ -1,0 +1,5 @@
+[application]
+name = 'Dutiful'
+
+[[files]]
+path = '.dutiful/config'
