@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
   s.files        = `git ls-files -- lib/*`.split("\n")
   s.executables  = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_path = "lib"
+
+  s.add_runtime_dependency 'tomlrb', '~> 1.1'
 end

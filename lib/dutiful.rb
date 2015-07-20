@@ -1,5 +1,8 @@
+require 'dutiful/application'
+require 'dutiful/file'
 require 'dutiful/version'
 require 'optparse'
+require 'tomlrb'
 
 module Dutiful
   class Runner
@@ -14,7 +17,12 @@ module Dutiful
         end
 
         opts.on('-l', '--list', 'List all preference files') do
-          puts 'Listing all preference files...'
+          Dir.foreach('db') do |filename|
+            next if filename == '.' or filename == '..'
+
+            application = Dutiful::Application.new "db/#{filename}"
+            puts application
+          end
         end
 
         opts.on('-r', '--restore', 'Restore all preference files') do
