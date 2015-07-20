@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'dutiful'
+
+Dutiful.new.say_hello
