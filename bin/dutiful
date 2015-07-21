@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'dutiful'
+require 'dutiful/command'
 require 'dutiful/version'
 
-Dutiful::Runner.parse_command ARGV
+Dutiful::Command.run
