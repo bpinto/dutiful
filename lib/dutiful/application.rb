@@ -32,6 +32,21 @@ module Dutiful
       output
     end
 
+    def self.all
+      Dir.foreach('db').map do |filename|
+        next if filename == '.' or filename == '..'
+
+        application = Dutiful::Application.new "db/#{filename}"
+        application if application.exists?
+      end.compact
+    end
+
+    def self.each
+      return enum_for(:each) unless block_given?
+
+      all.each { |application| yield application }
+    end
+
     private
 
     def content

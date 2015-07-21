@@ -15,5 +15,6 @@ Gem::Specification.new do |s|
   s.executables  = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_path = "lib"
 
+  s.add_runtime_dependency 'rsync', '~> 1.0'
   s.add_runtime_dependency 'tomlrb', '~> 1.1'
 end

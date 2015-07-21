@@ -3,6 +3,7 @@ require 'dutiful/file'
 require 'dutiful/version'
 require 'dutiful/storages'
 require 'optparse'
+require 'rsync'
 require 'tomlrb'
 
 module Dutiful
@@ -14,19 +15,32 @@ module Dutiful
         opts.banner = 'Usage: dutiful <command> [<options>]'
 
         opts.on('-b', '--backup', 'Backup all preference files') do
-          puts 'Backing up...'
+          puts "Storage: #{storage.name}"
+          puts
+
+          storage.create_dir
+
+          Dutiful::Application.each do |application|
+            puts "#{application.name}:\n"
+
+            application.files.each do |file|
+              print "  #{file.path}"
+              result = storage.sync(file)
+
+              if result.success?
+                puts " ✔"
+              else
+                puts " ✖ - #{result.error}"
+              end
+            end
+          end
         end
 
         opts.on('-l', '--list', 'List all preference files') do
           puts "Storage: #{storage.name}"
           puts
 
-          Dir.foreach('db') do |filename|
-            next if filename == '.' or filename == '..'
-
-            application = Dutiful::Application.new "db/#{filename}"
-            puts application if application.exists?
-          end
+          puts Dutiful::Application.all
         end
 
         opts.on('-r', '--restore', 'Restore all preference files') do
