@@ -1,0 +1,5 @@
+[application]
+name = 'tmux'
+
+[[files]]
+path = '.tmux.conf'
