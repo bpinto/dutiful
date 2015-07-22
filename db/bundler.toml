@@ -1,0 +1,5 @@
+[application]
+name = 'Bundler'
+
+[[files]]
+path = '.bundle/config'
