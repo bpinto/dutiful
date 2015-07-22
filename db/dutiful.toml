@@ -2,4 +2,4 @@
 name = 'Dutiful'
 
 [[files]]
-path = '.dutiful/config'
+path = '.dutiful/config.toml'

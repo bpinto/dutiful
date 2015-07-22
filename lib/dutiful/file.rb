@@ -12,7 +12,7 @@ module Dutiful
     end
 
     def synced?
-      Dutiful::Command.storage.exist?(self) && Dutiful::Command.storage.synced?(self)
+      Dutiful::Config.storage.exist?(self) && Dutiful::Config.storage.synced?(self)
     end
   end
 end

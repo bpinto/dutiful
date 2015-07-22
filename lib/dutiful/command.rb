@@ -10,7 +10,7 @@ class Dutiful::Command < Clamp::Command
     option ['-v', '--verbose'], :flag, 'Verbose mode'
 
     def execute
-      puts "Storage: #{Dutiful::Command.storage.name}\n\n"
+      puts "Storage: #{Dutiful::Config.storage.name}\n\n"
 
       Dutiful::Application.each do |application|
         puts "#{application.name}:\n"
@@ -32,7 +32,7 @@ class Dutiful::Command < Clamp::Command
 
   subcommand 'list', 'List all preference files' do
     def execute
-      puts "Storage: #{Dutiful::Command.storage.name}\n\n"
+      puts "Storage: #{Dutiful::Config.storage.name}\n\n"
 
       puts Dutiful::Application.all
     end
@@ -48,9 +48,5 @@ class Dutiful::Command < Clamp::Command
     def execute
       puts 'Not implemented yet'
     end
-  end
-
-  def self.storage
-    @storage ||= Dutiful::Storage.find { |storage| storage.available? }
   end
 end

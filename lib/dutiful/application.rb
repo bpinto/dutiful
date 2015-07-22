@@ -19,7 +19,7 @@ module Dutiful
     def sync
       files.each do |file|
         if file.exist?
-          result = Dutiful::Command.storage.sync(file) if file.exist?
+          result = Dutiful::Config.storage.sync(file) if file.exist?
           yield file, result
         else
           yield file

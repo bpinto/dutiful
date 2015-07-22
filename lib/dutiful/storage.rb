@@ -4,8 +4,14 @@ require 'shellwords'
 class Dutiful::Storage
   attr_reader :content, :full_path, :path
 
-  def initialize(path)
-    @content = Tomlrb.load_file(path, symbolize_keys: true)[:storage]
+  def initialize(name: nil, path: nil)
+    name ||= 'Custom folder'
+    path ||= Tomlrb.load_file("config/#{name.downcase}.toml", symbolize_keys: true)[:storage][:path]
+
+    @content = {
+      name: name,
+      path: path
+    }
   end
 
   def available?
@@ -48,7 +54,8 @@ class Dutiful::Storage
     Dir.foreach('config').map do |filename|
       next if filename == '.' or filename == '..'
 
-      Dutiful::Storage.new "config/#{filename}"
+      data = Tomlrb.load_file("config/#{filename}", symbolize_keys: true)[:storage]
+      Dutiful::Storage.new name: data[:name], path: data[:path]
     end.compact
   end
 
