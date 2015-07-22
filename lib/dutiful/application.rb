@@ -30,14 +30,16 @@ module Dutiful
     def to_s
       output = "#{name}:\n"
 
-      files.each do |file|
+      files.each_with_index do |file, index|
         next unless file.exist?
 
         if file.synced?
-          output << "  #{file.path} ✔"
+          output << "  #{file.path} ✔".green
         else
-          output << "  #{file.path} ✖"
+          output << "  #{file.path} (pending)".yellow
         end
+
+        output << "\n" if index < files.count
       end
 
       output

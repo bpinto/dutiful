@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
 
   s.add_runtime_dependency 'clamp', '~> 1.0'
+  s.add_runtime_dependency 'colorize', '~> 0.7'
   s.add_runtime_dependency 'rsync', '~> 1.0'
   s.add_runtime_dependency 'tomlrb', '~> 1.1'
 end
