@@ -1,0 +1,5 @@
+[application]
+name = 'iTerm2'
+
+[[files]]
+path = 'Library/Preferences/com.googlecode.iterm2.plist'
