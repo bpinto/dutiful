@@ -7,6 +7,8 @@ class Dutiful::Command < Clamp::Command
   end
 
   subcommand 'backup', 'Backup all preference files' do
+    option ['-v', '--verbose'], :flag, 'Verbose mode'
+
     def execute
       puts "Storage: #{Dutiful::Command.storage.name}\n"
 
@@ -14,16 +16,14 @@ class Dutiful::Command < Clamp::Command
         puts "#{application.name}:\n"
 
         application.sync do |file, result|
-          print "  #{file.path}"
-
           if result
             if result.success?
-              puts " ✔"
+              puts "  #{file.path} ✔"
             else
-              puts " ✖ - #{result.error}"
+              puts "  #{file.path} ✖ - #{result.error}"
             end
           else
-            puts " does not exist (skipping)" #TODO: verbose
+            puts "  #{file.path} does not exist (skipping)" if verbose?
           end
         end
       end
