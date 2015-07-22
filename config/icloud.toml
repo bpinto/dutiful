@@ -1,0 +1,3 @@
+[storage]
+name = 'iCloud'
+path = '~/Library/Mobile Documents'

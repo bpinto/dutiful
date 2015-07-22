@@ -1,7 +1,7 @@
 require 'dutiful/application'
 require 'dutiful/command'
 require 'dutiful/file'
-require 'dutiful/storages'
+require 'dutiful/storage'
 require 'colorize'
 require 'rsync'
 require 'tomlrb'

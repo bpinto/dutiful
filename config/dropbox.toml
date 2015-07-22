@@ -1,0 +1,3 @@
+[storage]
+name = 'Dropbox'
+path = '~/Dropbox'

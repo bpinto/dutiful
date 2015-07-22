@@ -51,8 +51,6 @@ class Dutiful::Command < Clamp::Command
   end
 
   def self.storage
-    @storage ||= if Dutiful::Storage::Icloud.available?
-                   Dutiful::Storage::Icloud
-                 end
+    @storage ||= Dutiful::Storage.find { |storage| storage.available? }
   end
 end
