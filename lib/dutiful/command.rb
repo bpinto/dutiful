@@ -8,22 +8,22 @@ class Dutiful::Command < Clamp::Command
 
   subcommand 'backup', 'Backup all preference files' do
     def execute
-      puts "Storage: #{Dutiful::Command.storage.name}"
-      puts
-
-      Dutiful::Command.storage.create_dir
+      puts "Storage: #{Dutiful::Command.storage.name}\n"
 
       Dutiful::Application.each do |application|
         puts "#{application.name}:\n"
 
-        application.files.each do |file|
+        application.sync do |file, result|
           print "  #{file.path}"
-          result = Dutiful::Command.storage.sync(file)
 
-          if result.success?
-            puts " ✔"
+          if result
+            if result.success?
+              puts " ✔"
+            else
+              puts " ✖ - #{result.error}"
+            end
           else
-            puts " ✖ - #{result.error}"
+            puts " does not exist (skipping)" #TODO: verbose
           end
         end
       end
@@ -32,8 +32,7 @@ class Dutiful::Command < Clamp::Command
 
   subcommand 'list', 'List all preference files' do
     def execute
-      puts "Storage: #{Dutiful::Command.storage.name}"
-      puts
+      puts "Storage: #{Dutiful::Command.storage.name}\n"
 
       puts Dutiful::Application.all
     end

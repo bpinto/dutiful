@@ -12,15 +12,26 @@ module Dutiful
       content[:files].map { |file| File.new file[:path] }
     end
 
-    def exists?
-      files.any? &:exists?
+    def exist?
+      files.any? &:exist?
+    end
+
+    def sync
+      files.each do |file|
+        if file.exist?
+          result = Dutiful::Command.storage.sync(file) if file.exist?
+          yield file, result
+        else
+          yield file
+        end
+      end
     end
 
     def to_s
       output = "#{name}:\n"
 
       files.each do |file|
-        next unless file.exists?
+        next unless file.exist?
 
         if file.synced?
           output << "  #{file.path} ✔"
@@ -37,7 +48,7 @@ module Dutiful
         next if filename == '.' or filename == '..'
 
         application = Dutiful::Application.new "db/#{filename}"
-        application if application.exists?
+        application if application.exist?
       end.compact
     end
 

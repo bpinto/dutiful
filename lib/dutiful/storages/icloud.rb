@@ -4,22 +4,23 @@ require 'shellwords'
 module Dutiful
   module Storage
     class Icloud
-      PATH = "~/Library/Mobile Documents"
+      PATH = ::File.expand_path("~/Library/Mobile Documents")
 
       def self.available?
-        ::File.exists? ::File.expand_path(PATH)
+        ::File.exist? PATH
       end
 
-      def self.create_dir
-        `mkdir -p storage.dir`
+      def self.create_dir(file)
+        directory_path = ::File.dirname "#{dir}/#{file.path}"
+        `mkdir -p #{directory_path.shellescape}`
       end
 
       def self.dir
         "#{PATH}/dutiful"
       end
 
-      def self.exists?(file)
-        ::File.exists? ::File.expand_path("#{dir}/#{file.path}")
+      def self.exist?(file)
+        ::File.exist? "#{dir}/#{file.path}"
       end
 
       def self.name
@@ -27,11 +28,12 @@ module Dutiful
       end
 
       def self.sync(file)
-        Rsync.run(file.full_path.shellescape, ::File.expand_path("#{dir}/#{file.path}").shellescape)
+        create_dir file
+        Rsync.run file.full_path.shellescape, "#{dir}/#{file.path}".shellescape
       end
 
       def self.synced?(file)
-        FileUtils.identical? file.full_path, ::File.expand_path("#{dir}/#{file.path}")
+        FileUtils.identical? file.full_path, "#{dir}/#{file.path}"
       end
     end
   end
