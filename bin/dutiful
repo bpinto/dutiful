@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'dutiful'
-require 'dutiful/command'
+require 'dutiful/commands'
 require 'dutiful/version'
 
-Dutiful::Command.run
+Dutiful::Command::Main.run

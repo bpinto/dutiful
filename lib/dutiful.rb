@@ -1,5 +1,4 @@
 require 'dutiful/application'
-require 'dutiful/command'
 require 'dutiful/config'
 require 'dutiful/file'
 require 'dutiful/storage'
