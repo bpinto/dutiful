@@ -19,7 +19,7 @@ module Dutiful
     def sync
       files.each do |file|
         if file.exist?
-          result = Dutiful::Config.storage.sync(file) if file.exist?
+          result = Dutiful::Config.storage.sync(file)
           yield file, result
         else
           yield file
@@ -30,27 +30,16 @@ module Dutiful
     def to_s
       output = "#{name}:\n"
 
-      files.each_with_index do |file, index|
-        next unless file.exist?
-
-        if file.synced?
-          output << "  #{file.path} ✔".green
-        else
-          output << "  #{file.path} (pending)".yellow
-        end
-
-        output << "\n" if index < files.count
-      end
-
-      output
+      output << files.map do |file|
+        "  #{file}" if file.exist? || file.has_backup?
+      end.compact.join("\n")
     end
 
     def self.all
       Dir.foreach('db').map do |filename|
         next if filename == '.' or filename == '..'
 
-        application = Dutiful::Application.new "db/#{filename}"
-        application if application.exist?
+        Dutiful::Application.new "db/#{filename}"
       end.compact
     end
 
