@@ -1,0 +1,27 @@
+PATH
+  remote: .
+  specs:
+    dutiful (0.0.2)
+      clamp (~> 1.0)
+      colorize (~> 0.7)
+      rsync (~> 1.0)
+      tomlrb (~> 1.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    clamp (1.0.0)
+    colorize (0.7.7)
+    fakefs (0.6.7)
+    rsync (1.0.9)
+    tomlrb (1.1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dutiful!
+  fakefs (~> 0.6)
+
+BUNDLED WITH
+   1.10.5
