@@ -9,7 +9,7 @@ module Dutiful
     end
 
     def files
-      content[:files].map { |file| File.new file[:path] }
+      content[:files].map { |file| ApplicationFile.new file[:path] }
     end
 
     def exist?
@@ -18,11 +18,11 @@ module Dutiful
 
     def sync
       files.each do |file|
-        if file.exist?
+        if file.exist? || file.has_backup?
           result = Dutiful::Config.storage.sync(file)
-          yield file, result
+          yield file, result if block_given?
         else
-          yield file
+          yield file if block_given?
         end
       end
     end
@@ -36,10 +36,8 @@ module Dutiful
     end
 
     def self.all
-      Dir.foreach('db').map do |filename|
-        next if filename == '.' or filename == '..'
-
-        Dutiful::Application.new "db/#{filename}"
+      Dir['db/*.toml'].map do |filename|
+        Dutiful::Application.new filename
       end.compact
     end
 

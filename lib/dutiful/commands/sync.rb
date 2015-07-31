@@ -1,4 +1,4 @@
-class Dutiful::Command::Backup < Clamp::Command
+class Dutiful::Command::Sync < Clamp::Command
   option ['-v', '--verbose'], :flag, 'Verbose mode'
 
   def execute

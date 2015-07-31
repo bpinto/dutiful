@@ -12,7 +12,21 @@ GEM
   specs:
     clamp (1.0.0)
     colorize (0.7.7)
+    diff-lcs (1.2.5)
     fakefs (0.6.7)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+    rspec-core (3.3.2)
+      rspec-support (~> 3.3.0)
+    rspec-expectations (3.3.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-mocks (3.3.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-support (3.3.0)
     rsync (1.0.9)
     tomlrb (1.1.1)
 
@@ -22,6 +36,7 @@ PLATFORMS
 DEPENDENCIES
   dutiful!
   fakefs (~> 0.6)
+  rspec (~> 3.3)
 
 BUNDLED WITH
    1.10.5

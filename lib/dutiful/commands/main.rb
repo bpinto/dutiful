@@ -4,7 +4,7 @@ class Dutiful::Command::Main < Clamp::Command
     exit 0
   end
 
-  subcommand 'backup', 'Backup all preference files', Dutiful::Command::Backup
+  subcommand 'sync', 'Sync all preference files', Dutiful::Command::Sync
   subcommand 'list', 'List all preference files', Dutiful::Command::List
 
   subcommand 'restore', 'Restore all preference files' do

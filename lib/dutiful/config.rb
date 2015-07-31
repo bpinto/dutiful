@@ -1,5 +1,5 @@
 class Dutiful::Config
-  PATH = ::File.expand_path '~/.dutiful/config.toml'
+  PATH = File.expand_path '~/.dutiful/config.toml'
 
   def self.storage
     @storage ||= if content[:storage]
@@ -15,6 +15,6 @@ class Dutiful::Config
   private
 
   def self.content
-    @content ||= Tomlrb.load_file(PATH, symbolize_keys: true) || {}
+    @content ||= Tomlrb.load_file(PATH, symbolize_keys: true) rescue {}
   end
 end
