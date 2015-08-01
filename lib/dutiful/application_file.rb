@@ -32,15 +32,19 @@ class Dutiful::ApplicationFile
 
   def to_s
     if exist?
-      return "#{path} ✔".green if synced?
-
       if has_backup?
-        return "#{path} (modified)".yellow
+        if synced?
+          "#{path} ✔".green
+        else
+          "#{path} (modified)".yellow
+        end
       else
-        return "#{path} (pending backup)".yellow
+        "#{path} (pending backup)".yellow
       end
+    elsif has_backup?
+      "#{path} (pending restore)".yellow
+    else
+      "#{path} does not exist (skipping)".yellow
     end
-
-    "#{path} (pending restore)".yellow if has_backup?
   end
 end

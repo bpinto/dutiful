@@ -15,6 +15,10 @@ class Dutiful::Application
     files.any? &:exist?
   end
 
+  def has_backup?
+    files.any? &:has_backup?
+  end
+
   def sync
     files.each do |file|
       if file.exist? || file.has_backup?
@@ -26,12 +30,8 @@ class Dutiful::Application
     end
   end
 
-  def to_s
-    output = "#{name}:\n"
-
-    output << files.map do |file|
-      "  #{file}" if file.exist? || file.has_backup?
-    end.compact.join("\n")
+  def synced?
+    files.all? &:synced?
   end
 
   def self.all
