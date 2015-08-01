@@ -6,7 +6,7 @@ class Dutiful::Storage
 
   def initialize(name: nil, path: nil)
     name ||= 'Custom folder'
-    path ||= Tomlrb.load_file("config/#{name.downcase}.toml", symbolize_keys: true)[:storage][:path]
+    path ||= Tomlrb.load_file("#{Dutiful.dir}/config/#{name.downcase}.toml", symbolize_keys: true)[:storage][:path]
 
     @name         = name
     @storage_path = File.expand_path path
@@ -54,7 +54,7 @@ class Dutiful::Storage
   private
 
   def self.all
-    Dir['config/*.toml'].map do |filename|
+    Dir["#{Dutiful.dir}/config/*.toml"].map do |filename|
       data = Tomlrb.load_file(filename, symbolize_keys: true)[:storage]
       Dutiful::Storage.new name: data[:name], path: data[:path]
     end.compact
