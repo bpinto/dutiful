@@ -18,7 +18,8 @@ class Dutiful::Storage
   end
 
   def create_dir(file)
-    FileUtils.mkdir_p File.dirname "#{path}/#{file.path}".shellescape
+    FileUtils.mkdir_p File.dirname "#{path}/#{file.path}"
+    FileUtils.mkdir_p "/Users/bpinto/Dropbox/dutiful/Library/Application\ Support/Dash"
   end
 
   def exist?(file)

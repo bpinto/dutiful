@@ -6,7 +6,8 @@ require 'rspec'
 Bundler.setup
 
 def clone_dutiful_dir
-  FakeFS::FileSystem.clone File.dirname(File.dirname(__FILE__)), '.'
+  FakeFS::FileSystem.clear
+  FakeFS::FileSystem.clone File.dirname(File.dirname(__FILE__))
 end
 
 def create_dropbox_dir
@@ -23,7 +24,7 @@ end
 
 class FakeRsync
   def self.run(src, dest)
-    FileUtils.cp src, dest
+    FileUtils.cp src, dest.gsub('\\', '')
   end
 end
 
