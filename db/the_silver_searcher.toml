@@ -1,0 +1,5 @@
+[application]
+name = 'The Silver Seacher'
+
+[[files]]
+path = '.agignore'
