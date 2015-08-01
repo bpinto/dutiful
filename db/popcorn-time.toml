@@ -1,0 +1,5 @@
+[application]
+name = 'Popcorn-Time'
+
+[[files]]
+path = 'Library/Application Support/Popcorn-Time/data/'
