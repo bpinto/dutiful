@@ -1,0 +1,14 @@
+[application]
+name = 'Dash'
+
+[[files]]
+path = 'Library/Application Support/Dash/library.dash'
+
+[[files]]
+path = 'Library/Application Support/Dash/License/license.dash-license'
+
+[[files]]
+path = 'Library/Preferences/com.kapeli.dash.plist'
+
+[[files]]
+path = 'Library/Preferences/com.kapeli.dashdoc.plist'
