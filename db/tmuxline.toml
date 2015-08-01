@@ -1,0 +1,5 @@
+[application]
+name = 'tmuxline.vim'
+
+[[files]]
+path = '.tmuxline'
