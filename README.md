@@ -1,13 +1,13 @@
 # Dutiful
 
-### Why?
-  Upgrading/formatting your computer should be a pleasure.
-
-### How?
-  We detect and keep your computer settings and preference files in sync with your favorite storage service (iCloud, Dropbox, etc.).
-
 ### What?
   Dutiful is a user-friendly tool for managing your computer settings and preference files.
+  
+### Why?
+  Getting a new computer should be a pleasure.  Formatting your computer should be less hassle.
+
+### How?
+  We detect and keep your application settings and preference files in sync with your favorite storage service (iCloud, Dropbox, etc.).
 
 <br>
 ## Installation
