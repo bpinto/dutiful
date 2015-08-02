@@ -1,7 +1,7 @@
 # Dutiful
 
 ### What?
-  Dutiful is a user-friendly tool for managing your computer settings and preference files.
+  Dutiful is a user-friendly tool for managing your application settings and preference files.
   
 ### Why?
   Getting a new computer should be a pleasure.  Formatting your computer should be less hassle.
