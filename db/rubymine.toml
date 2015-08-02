@@ -1,15 +1,15 @@
 [application]
 name = 'RubyMine'
 
-[[files]]
+[[file]]
 path = 'Library/Application Support/RubyMine60'
 
-[[files]]
+[[file]]
 path = 'Library/Preferences/RubyMine60'
 
-[[files]]
+[[file]]
 path = 'Library/Application Support/RubyMine70'
 
-[[files]]
+[[file]]
 path = 'Library/Preferences/RubyMine70'
 

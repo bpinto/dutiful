@@ -8,7 +8,7 @@ class Dutiful::Application
   end
 
   def files
-    content[:files].map { |file| Dutiful::ApplicationFile.new file[:path] }
+    content[:file].map { |file| Dutiful::ApplicationFile.new file[:path] }
   end
 
   def exist?

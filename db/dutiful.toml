@@ -1,5 +1,5 @@
 [application]
 name = 'Dutiful'
 
-[[files]]
+[[file]]
 path = '.dutiful/config.toml'

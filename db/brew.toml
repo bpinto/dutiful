@@ -1,5 +1,5 @@
 [application]
 name = 'Brew'
 
-[[files]]
+[[file]]
 path = 'Brewfile'

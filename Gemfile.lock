@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dutiful (0.0.4)
+    dutiful (0.0.6)
       clamp (~> 1.0)
       colorize (~> 0.7)
       rsync (~> 1.0)

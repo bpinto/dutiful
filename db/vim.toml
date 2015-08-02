@@ -1,8 +1,8 @@
 [application]
 name = 'Vim'
 
-[[files]]
+[[file]]
 path = '.vimrc'
 
-[[files]]
+[[file]]
 path = '.gvimrc'

@@ -1,6 +1,6 @@
 [application]
 name = 'Git'
 
-[[files]]
+[[file]]
 path = '.gitconfig'
 path = '.gitignore'
