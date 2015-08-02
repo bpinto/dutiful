@@ -26,6 +26,10 @@ Backup all preference files.
 
 List all preference files and their current sync status.
 
+`dutiful restore`
+
+Restore all preference files.
+
 `dutiful sync`
 
 Sync all preference files.

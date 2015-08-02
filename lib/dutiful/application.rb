@@ -11,32 +11,25 @@ class Dutiful::Application
     content[:application][:name]
   end
 
-  def backup
-    files.each do |file|
-      if file.should_sync? && file.exist?
-        result = Dutiful::Config.storage.backup(file)
-        yield file, result if block_given?
-      else
-        yield file if block_given?
-      end
-    end
+  def backup(&block)
+    sync backup_only: true, &block
   end
 
-  def restore
-    files.each do |file|
-      if file.should_sync? && file.has_backup?
-        result = Dutiful::Config.storage.restore(file)
-        yield file, result if block_given?
-      else
-        yield file if block_given?
-      end
-    end
+  def restore(&block)
+    sync restore_only: true, &block
   end
 
-  def sync
+  def sync(backup_only: false, restore_only: false)
     files.each do |file|
       if file.should_sync?
-        result = Dutiful::Config.storage.sync(file)
+        result = if backup_only && file.exist?
+                   Dutiful::Config.storage.backup(file)
+                 elsif restore_only && file.has_backup?
+                   Dutiful::Config.storage.restore(file)
+                 else
+                   Dutiful::Config.storage.sync(file)
+                 end
+
         yield file, result if block_given?
       else
         yield file if block_given?
