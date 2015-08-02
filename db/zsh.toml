@@ -1,0 +1,17 @@
+[application]
+name = 'Zsh'
+
+[[files]]
+path = '.zshenv'
+
+[[files]]
+path = '.zprofile'
+
+[[files]]
+path = '.zshrc'
+
+[[files]]
+path = '.zlogin'
+
+[[files]]
+path = '.zlogout'
