@@ -35,16 +35,16 @@ class Dutiful::Storage
   end
 
   def backup(file)
+    create_dir file
     Rsync.run file.full_path.shellescape, file.backup_path.shellescape, '--recursive'
   end
 
   def restore(file)
+    create_dir file
     Rsync.run file.backup_path.shellescape, file.full_path.shellescape, '--recursive'
   end
 
   def sync(file)
-    create_dir file
-
     if file.exist?
       if file.has_backup? && file.backup_timestamp > file.timestamp
         restore file
