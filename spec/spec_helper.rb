@@ -22,9 +22,17 @@ def dir_content(dir)
   Dir[File.expand_path "#{dir}/{*,.*}"]
 end
 
+# Bad hack, should use a real filesystem instead (docker?)
 class FakeRsync
-  def self.run(src, dest)
-    FileUtils.cp src, dest.gsub('\\', '')
+  def self.run(src, dest, *opts)
+    dest = dest.gsub('\\', '')
+
+    if File.file? src
+      FileUtils.cp src, dest
+    else
+      FileUtils.mkdir_p File.dirname(dest)
+      FileUtils.cp_r src, dest
+    end
   end
 end
 

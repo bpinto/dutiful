@@ -3,7 +3,12 @@ class Dutiful::ApplicationFile
 
   def initialize(path)
     @path      = path
-    @full_path = File.expand_path "~/#{path}"
+
+    if directory?
+      @full_path = "#{File.expand_path "~/#{path}"}/"
+    else
+      @full_path = File.expand_path "~/#{path}"
+    end
   end
 
   def backup_path
@@ -16,6 +21,10 @@ class Dutiful::ApplicationFile
 
   def timestamp
     File.mtime full_path if exist?
+  end
+
+  def directory?
+    path.chars.last == '/'
   end
 
   def exist?

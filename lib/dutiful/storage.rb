@@ -39,17 +39,26 @@ class Dutiful::Storage
 
     if file.exist?
       if file.has_backup? && file.backup_timestamp > file.timestamp
-        Rsync.run file.backup_path.shellescape, file.full_path.shellescape
+        Rsync.run file.backup_path.shellescape, file.full_path.shellescape, '--recursive'
       else
-        Rsync.run file.full_path.shellescape, file.backup_path.shellescape
+        Rsync.run file.full_path.shellescape, file.backup_path.shellescape, '--recursive'
       end
     else
-      Rsync.run file.backup_path.shellescape, file.full_path.shellescape
+      Rsync.run file.backup_path.shellescape, file.full_path.shellescape, '--recursive'
     end
   end
 
   def synced?(file)
-    FileUtils.identical? file.full_path, "#{path}/#{file.path}"
+    if file.directory?
+      Dir.glob("#{file.full_path}*").all? do |file_path|
+        filename = File.basename(file_path)
+        file_backup_path = path "#{file.path}#{filename}"
+
+        FileUtils.identical? file_path, file_backup_path
+      end
+    else
+      FileUtils.identical? file.full_path, "#{path}/#{file.path}"
+    end
   end
 
   private
