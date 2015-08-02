@@ -1,8 +1,11 @@
 class Dutiful::ApplicationFile
   attr_reader :full_path, :path
 
-  def initialize(path)
-    @path      = path
+  def initialize(path, condition)
+    @command         = condition[:command] if condition
+    @expected_output = condition[:expected_output] if condition
+    @expected_status = condition[:expected_status] if condition
+    @path            = path
 
     if directory?
       @full_path = "#{File.expand_path "~/#{path}"}/"
@@ -23,6 +26,20 @@ class Dutiful::ApplicationFile
     File.mtime full_path if exist?
   end
 
+  def meets_conditions?
+    if has_condition?
+      output = `#{@command}`
+
+      if @expected_status
+        $?.exitstatus == @expected_status
+      else
+        $?.success? && output.strip == @expected_output
+      end
+    else
+      true
+    end
+  end
+
   def directory?
     path.chars.last == '/'
   end
@@ -35,11 +52,21 @@ class Dutiful::ApplicationFile
     Dutiful::Config.storage.exist? self
   end
 
+  def has_condition?
+    @command
+  end
+
+  def should_sync?
+    (exist? || has_backup?) && meets_conditions?
+  end
+
   def synced?
     has_backup? && Dutiful::Config.storage.synced?(self)
   end
 
   def to_s
+    return "#{path} does not meet conditions (skipping)".yellow unless meets_conditions?
+
     if exist?
       if has_backup?
         if synced?

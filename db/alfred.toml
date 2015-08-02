@@ -1,0 +1,22 @@
+[application]
+name = 'Alfred'
+
+[[file]]
+path = 'Library/Preferences/com.runningwithcrayons.Alfred-2.plist'
+
+[[file]]
+path = 'Library/Preferences/com.runningwithcrayons.Alfred-Preferences.plist'
+
+[[file]]
+path = 'Library/Application Support/Alfred 2/license.plist'
+
+  [file.condition]
+    command          = 'defaults read-type com.runningwithcrayons.Alfred-Preferences syncfolder 2>&1'
+    expected_output  = 'Type is string'
+
+[[file]]
+path = 'Library/Application Support/Alfred 2/'
+
+  [file.condition]
+    command          = 'defaults read-type com.runningwithcrayons.Alfred-Preferences syncfolder 2>&1'
+    expected_status  = 1

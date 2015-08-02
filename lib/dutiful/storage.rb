@@ -19,7 +19,7 @@ class Dutiful::Storage
 
   def create_dir(file)
     FileUtils.mkdir_p File.dirname "#{path}/#{file.path}"
-    FileUtils.mkdir_p "/Users/bpinto/Dropbox/dutiful/Library/Application\ Support/Dash"
+    FileUtils.mkdir_p File.dirname "#{file.full_path}"
   end
 
   def exist?(file)
@@ -54,7 +54,9 @@ class Dutiful::Storage
         filename = File.basename(file_path)
         file_backup_path = path "#{file.path}#{filename}"
 
-        FileUtils.identical? file_path, file_backup_path
+        File.exist?(file_path) &&
+          File.exist?(file_backup_path) &&
+          FileUtils.identical?(file_path, file_backup_path)
       end
     else
       FileUtils.identical? file.full_path, "#{path}/#{file.path}"

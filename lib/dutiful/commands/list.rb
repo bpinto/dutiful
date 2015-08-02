@@ -5,10 +5,10 @@ class Dutiful::Command::List < Clamp::Command
     puts "Storage: #{Dutiful::Config.storage.name}\n\n"
 
     Dutiful::Application.each do |application|
-      puts "#{application.name}:\n" if application.exist? || application.has_backup? || verbose?
+      puts "#{application.name}:\n" if application.should_sync? || verbose?
 
       application.files.map do |file|
-        puts "  #{file}" if file.exist? || file.has_backup? || verbose?
+        puts "  #{file}" if (file.should_sync?) || verbose?
       end.compact.join("\n")
     end
   end

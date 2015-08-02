@@ -8,7 +8,7 @@ class Dutiful::Application
   end
 
   def files
-    content[:file].map { |file| Dutiful::ApplicationFile.new file[:path] }
+    content[:file].map { |file| Dutiful::ApplicationFile.new file[:path], file[:condition] }
   end
 
   def exist?
@@ -21,13 +21,17 @@ class Dutiful::Application
 
   def sync
     files.each do |file|
-      if file.exist? || file.has_backup?
+      if file.should_sync?
         result = Dutiful::Config.storage.sync(file)
         yield file, result if block_given?
       else
         yield file if block_given?
       end
     end
+  end
+
+  def should_sync?
+    exist? || has_backup?
   end
 
   def synced?

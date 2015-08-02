@@ -5,7 +5,7 @@ class Dutiful::Command::Sync < Clamp::Command
     puts "Storage: #{Dutiful::Config.storage.name}\n\n"
 
     Dutiful::Application.each do |application|
-      puts "#{application.name}:\n" if application.exist? || application.has_backup? || verbose?
+      puts "#{application.name}:\n" if application.should_sync? || verbose?
 
       application.sync do |file, result|
         if result
@@ -15,7 +15,7 @@ class Dutiful::Command::Sync < Clamp::Command
             puts "  #{file.path} ✖ - #{result.error}".red
           end
         elsif verbose?
-          puts "  #{file.path} does not exist (skipping)".yellow
+          puts "  #{file}"
         end
       end
     end
