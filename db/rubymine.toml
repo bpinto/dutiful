@@ -1,0 +1,15 @@
+[application]
+name = 'RubyMine'
+
+[[files]]
+path = 'Library/Application Support/RubyMine60'
+
+[[files]]
+path = 'Library/Preferences/RubyMine60'
+
+[[files]]
+path = 'Library/Application Support/RubyMine70'
+
+[[files]]
+path = 'Library/Preferences/RubyMine70'
+
