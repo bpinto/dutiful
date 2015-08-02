@@ -18,6 +18,10 @@ gem install dutiful
 
 ## Usage
 
+`dutiful backup`
+
+Backup all preference files.
+
 `dutiful list`
 
 List all preference files and their current sync status.

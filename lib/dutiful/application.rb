@@ -3,20 +3,34 @@ class Dutiful::Application
     @path = path
   end
 
-  def name
-    content[:application][:name]
-  end
-
   def files
     content[:file].map { |file| Dutiful::ApplicationFile.new file[:path], file[:condition] }
   end
 
-  def exist?
-    files.any? &:exist?
+  def name
+    content[:application][:name]
   end
 
-  def has_backup?
-    files.any? &:has_backup?
+  def backup
+    files.each do |file|
+      if file.should_sync? && file.exist?
+        result = Dutiful::Config.storage.backup(file)
+        yield file, result if block_given?
+      else
+        yield file if block_given?
+      end
+    end
+  end
+
+  def restore
+    files.each do |file|
+      if file.should_sync? && file.has_backup?
+        result = Dutiful::Config.storage.restore(file)
+        yield file, result if block_given?
+      else
+        yield file if block_given?
+      end
+    end
   end
 
   def sync
@@ -28,6 +42,14 @@ class Dutiful::Application
         yield file if block_given?
       end
     end
+  end
+
+  def exist?
+    files.any? &:exist?
+  end
+
+  def has_backup?
+    files.any? &:has_backup?
   end
 
   def should_sync?
