@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/bpinto/dutiful.svg?branch=e2e)](https://travis-ci.org/bpinto/dutiful)
+[![Dependency Status](https://gemnasium.com/bpinto/dutiful.svg)](https://gemnasium.com/bpinto/dutiful)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bpinto/dutiful?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # Dutiful
 
 ### What?
