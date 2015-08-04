@@ -30,18 +30,12 @@ RSpec.describe 'Backup' do
   it 'all files that meet the conditions' do
     file = {
       path: '.dutiful.test',
-      condition: {
-        command: 'true',
-        expected_status: 0
-      }
+      condition: { command: 'true', expected_status: 0 }
     }
 
     ignored_file = {
       path: '.dutiful.test.ignored',
-      condition: {
-        command: 'false',
-        expected_status: 0
-      }
+      condition: { command: 'false', expected_status: 0 }
     }
 
     with_application files: [file, ignored_file] do

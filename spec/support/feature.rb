@@ -17,11 +17,11 @@ RSpec.configure do |config|
     FileUtils.remove_entry Dutiful::Config.storage.storage_path
   end
 
-  def with_application(name: 'test_application', files: [], backup_files: [])
-    files        = Array(files).map         { |file| create_file(file) }
-    backup_files = Array(backup_files).map  { |file| create_file(file) }
+  def with_application(name = 'test_application', options)
+    files        = Array(options[:files]).map        { |file| create_file(file) }
+    backup_files = Array(options[:backup_files]).map { |file| create_file(file) }
 
-    create_application_toml(name: name, files: files + backup_files)
+    create_application_toml(name, files + backup_files)
 
     files.each do |file|
       FileUtils.mkdir_p File.dirname(file[:expanded_path])
@@ -44,7 +44,7 @@ RSpec.configure do |config|
 
   private
 
-  def create_application_toml(name:, files:)
+  def create_application_toml(name, files)
     File.open("#{Dutiful.dir}/db/#{name}.toml", 'w') do |application|
       application << <<-EOF.gsub(/^ {6}/, '')
           [application]
