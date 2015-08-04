@@ -17,50 +17,69 @@ RSpec.configure do |config|
     FileUtils.remove_entry Dutiful::Config.storage.storage_path
   end
 
-  def with_application(name: 'test_application', files:)
-    files = Array(files)
+  def with_application(name: 'test_application', files: [], backup_files: [])
+    files        = Array(files).map         { |file| create_file(file) }
+    backup_files = Array(backup_files).map  { |file| create_file(file) }
 
-    File.open("#{Dutiful.dir}/db/#{name}.toml", 'w') do |application|
-      application << <<-EOF.gsub(/^ {8}/, '')
-          [application]
-          name = '#{name}'
-      EOF
-
-      files.each do |file|
-        if file.is_a? String
-          application << <<-EOF.gsub(/^ {8}/, '')
-
-            [[file]]
-            path = '#{file}'
-          EOF
-        else
-          application << <<-EOF.gsub(/^ {8}/, '')
-
-            [[file]]
-            path = '#{file[:path]}'
-
-              [file.condition]
-                command         = '#{file[:condition][:command]}'
-                expected_status = #{file[:condition][:expected_status]}
-          EOF
-        end
-      end
-    end
+    create_application_toml(name: name, files: files + backup_files)
 
     files.each do |file|
-      filepath = (file.is_a? String) ? file : file[:path]
+      FileUtils.mkdir_p File.dirname(file[:expanded_path])
+      File.open(file[:expanded_path], 'w') { |file| file << 'file test content' }
+    end
 
-      FileUtils.mkdir_p File.dirname(File.expand_path "~/#{filepath}")
-      File.open(File.expand_path("~/#{filepath}"), 'w') { |file| file << 'file test content' }
+    backup_files.each do |file|
+      FileUtils.mkdir_p File.dirname(file[:backup_path])
+      File.open(file[:backup_path], 'w') { |file| file << 'file test content' }
     end
 
     yield
 
   ensure
-    files.each do |file|
-      filepath = (file.is_a? String) ? file : file[:path]
-
-      File.delete File.expand_path("~/#{filepath}") if File.exist? File.expand_path("~/#{filepath}")
+    (files + backup_files).each do |file|
+      File.delete file[:backup_path]   if File.exist? file[:backup_path]
+      File.delete file[:expanded_path] if File.exist? file[:expanded_path]
     end
+  end
+
+  private
+
+  def create_application_toml(name:, files:)
+    File.open("#{Dutiful.dir}/db/#{name}.toml", 'w') do |application|
+      application << <<-EOF.gsub(/^ {6}/, '')
+          [application]
+          name = '#{name}'
+      EOF
+
+      files.each do |file|
+        application << <<-EOF.gsub(/^ {8}/, '')
+
+          [[file]]
+          path = '#{file[:path]}'
+        EOF
+
+        if file[:condition]
+          application << <<-EOF.gsub(/^ {10}/, '')
+              [file.condition]
+                command         = '#{file[:condition][:command]}'
+                expected_status = #{file[:condition][:expected_status]}
+          EOF
+        else
+        end
+      end
+    end
+  end
+
+  def create_file(path)
+    file = if path.is_a? Hash
+      path
+    else
+      file = { path: path }
+    end
+
+    file[:backup_path]   = File.expand_path "#{Dutiful::Config.storage.path}/#{file[:path]}"
+    file[:expanded_path] = File.expand_path "~/#{file[:path]}"
+
+    file
   end
 end
