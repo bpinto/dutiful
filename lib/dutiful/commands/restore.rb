@@ -1,21 +1,23 @@
 class Dutiful::Command::Restore < Clamp::Command
+  option ['-q', '--quiet'], :flag, 'Quiet mode'
   option ['-v', '--verbose'], :flag, 'Verbose mode'
 
   def execute
-    puts "Storage: #{Dutiful::Config.storage.name}\n\n"
+    Dutiful::Logger.set quiet?, verbose?
+    Dutiful::Logger.info "Storage: #{Dutiful::Config.storage.name}\n\n"
 
     Dutiful::Application.each do |application|
-      puts "#{application.name}:\n" if application.should_sync? && application.has_backup? || verbose?
+      Dutiful::Logger.info "#{application.name}:\n" if application.should_sync? && application.has_backup? || verbose?
 
       application.restore do |file, result|
         if result
           if result.success?
-            puts "  #{file.path} ✔".green
+            Dutiful::Logger.success "  #{file.path} ✔"
           else
-            puts "  #{file.path} ✖ - #{result.error}".red
+            Dutiful::Logger.error "  #{file.path} ✖ - #{result.error}"
           end
         elsif verbose?
-          puts "  #{file}"
+          Dutiful::Logger.info "  #{file}"
         end
       end
     end
