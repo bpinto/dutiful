@@ -4,7 +4,7 @@ RSpec.describe 'Backup' do
   it 'creates the dutiful folder' do
     with_application files: '.dutiful.test' do
       expect {
-        Dutiful::Command::Main.run 'dutiful', ['backup']
+        Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
       }.to change { Dir.exist? Dutiful::Config.storage.path }.to true
     end
   end
@@ -12,7 +12,7 @@ RSpec.describe 'Backup' do
   it 'creates the necessary folders for backup' do
     with_application files: 'dutiful-test-folder/.dutiful.test' do
       expect {
-        Dutiful::Command::Main.run 'dutiful', ['backup']
+        Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
       }.to change { Dir.exist? "#{Dutiful::Config.storage.path}/dutiful-test-folder" }.to true
     end
 
@@ -22,7 +22,7 @@ RSpec.describe 'Backup' do
   it 'all files' do
     with_application files: '.dutiful.test' do
       expect {
-        Dutiful::Command::Main.run 'dutiful', ['backup']
+        Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
       }.to change { File.exist? "#{Dutiful::Config.storage.path}/.dutiful.test" }.to true
     end
   end
@@ -39,7 +39,7 @@ RSpec.describe 'Backup' do
     }
 
     with_application files: [file, ignored_file] do
-      Dutiful::Command::Main.run 'dutiful', ['backup']
+      Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
       expect(File.exist? "#{Dutiful::Config.storage.path}/.dutiful.test").to eq true
       expect(File.exist? "#{Dutiful::Config.storage.path}/.dutiful.test.ignored").to eq false
     end

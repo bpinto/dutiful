@@ -1,6 +1,6 @@
 class Dutiful::Command::Main < Clamp::Command
   option ['-v', '--version'], :flag, 'Show version' do
-    puts "dutiful #{Dutiful::VERSION}"
+    Dutiful::Logger.info "dutiful #{Dutiful::VERSION}"
     exit 0
   end
 

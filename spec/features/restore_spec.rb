@@ -4,7 +4,7 @@ RSpec.describe 'Restore' do
   it 'creates the necessary folders for restore' do
     with_application backup_files: 'dutiful-test-folder/.dutiful.test' do
       expect {
-        Dutiful::Command::Main.run 'dutiful', ['restore']
+        Dutiful::Command::Main.run 'dutiful', ['restore', '-q']
       }.to change { Dir.exist? File.expand_path('~/dutiful-test-folder') }.to true
     end
 
@@ -14,7 +14,7 @@ RSpec.describe 'Restore' do
   it 'all files' do
     with_application backup_files: '.dutiful.test' do
       expect {
-        Dutiful::Command::Main.run 'dutiful', ['restore']
+        Dutiful::Command::Main.run 'dutiful', ['restore', '-q']
       }.to change { File.exist? File.expand_path('~/.dutiful.test') }.to true
     end
   end
@@ -31,7 +31,7 @@ RSpec.describe 'Restore' do
     }
 
     with_application backup_files: [file, ignored_file] do
-      Dutiful::Command::Main.run 'dutiful', ['restore']
+      Dutiful::Command::Main.run 'dutiful', ['restore', '-q']
 
       expect(File.exist? File.expand_path('~/.dutiful.test')).to eq true
       expect(File.exist? File.expand_path('~/.dutiful.test.ignored')).to eq false
