@@ -1,17 +1,8 @@
 class Dutiful::ApplicationFile
-  attr_reader :full_path, :path
+  attr_reader :path
 
   def initialize(path, condition)
-    @command         = condition[:command] if condition
-    @expected_output = condition[:expected_output] if condition
-    @expected_status = condition[:expected_status] if condition
-    @path            = path
-
-    if directory?
-      @full_path = "#{File.expand_path "~/#{path}"}/"
-    else
-      @full_path = File.expand_path "~/#{path}"
-    end
+    @condition, @path = condition, path
   end
 
   def backup_path
@@ -22,22 +13,32 @@ class Dutiful::ApplicationFile
     File.mtime backup_path if has_backup?
   end
 
-  def timestamp
-    File.mtime full_path if exist?
+  def command
+    @condition[:command] if has_condition?
   end
 
-  def meets_conditions?
-    if has_condition?
-      output = `#{@command}`
+  def expected_output
+    @condition[:expected_output] if has_condition?
+  end
 
-      if @expected_status
-        $?.exitstatus == @expected_status
-      else
-        $?.success? && output.strip == @expected_output
-      end
+  def expected_status
+    @condition[:expected_status] if has_condition?
+  end
+
+  def full_path
+    if directory?
+      "#{File.expand_path "~/#{path}"}/"
     else
-      true
+      File.expand_path "~/#{path}"
     end
+  end
+
+  def name
+    path
+  end
+
+  def timestamp
+    File.mtime full_path if exist?
   end
 
   def directory?
@@ -53,7 +54,21 @@ class Dutiful::ApplicationFile
   end
 
   def has_condition?
-    @command
+    @condition
+  end
+
+  def meets_conditions?
+    if has_condition?
+      output = `#{command}`
+
+      if expected_status
+        $?.exitstatus == expected_status
+      else
+        $?.success? && output.strip == expected_output
+      end
+    else
+      true
+    end
   end
 
   def should_sync?

@@ -1,0 +1,7 @@
+[application]
+name = 'OSX Screencapture'
+
+[[default]]
+description = 'Change where screenshots are saved to'
+domain      = 'com.apple.screencapture'
+key         = 'location'

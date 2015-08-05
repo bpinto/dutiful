@@ -11,6 +11,10 @@ class Dutiful::Command::List < Clamp::Command
       application.files.map do |file|
         Dutiful::Logger.info "  #{file}" if file.should_sync? || verbose?
       end.compact.join("\n")
+
+      application.defaults.map do |default|
+        Dutiful::Logger.info "  #{default}" if default.should_sync? || verbose?
+      end.compact.join("\n")
     end
   end
 end
