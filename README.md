@@ -36,8 +36,9 @@ Restore all preference files.
 
 ## Customization
 
-Dutiful detects the preference files on your computer and keeps them in sync automatically, so you don't need to do anything prior to its usage.
-However, if you do want to override its default settings, check out the [docs](doc).
+Dutiful is opinionated and by default it is going to backup the preference files for all [supported applications](#supported-applications) you have on your computer to one of the [supported storages](#supported-storages).
+
+If you would like to customize the backup folder or the preference files that are synced, head to the [configuration](wiki#configure-dutiful) documentation.
 
 ## Supported Storages
 

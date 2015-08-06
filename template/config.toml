@@ -1,0 +1,6 @@
+[storage]
+# If the storage name is either iCloud or Dropbox, the storage path will default to
+# '~/Dropbox' and '~/Library/Mobile Documents' respectively.
+
+name = 'iCloud'           # The storage name is going to be printed when running the dutiful commands.
+#path = '~/custom-folder' # The folder where your preference files are synced to.

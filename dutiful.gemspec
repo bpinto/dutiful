@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = "dutiful-#{Dutiful::VERSION}"
   s.description = 'Dotfiles manager'
 
-  s.files        = `git ls-files -- lib/* config/* db/*`.split("\n")
+  s.files        = `git ls-files -- lib/* config/* db/* template/*`.split("\n")
   s.executables  = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_path = "lib"
 
