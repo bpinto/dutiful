@@ -26,6 +26,10 @@ gem install dutiful
 
 Backup all preference files.
 
+`dutiful init`
+
+Initialize the configuration file.
+
 `dutiful list`
 
 List all preference files and their current sync status.
