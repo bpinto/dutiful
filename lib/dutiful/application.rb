@@ -4,6 +4,8 @@ class Dutiful::Application
   end
 
   def defaults
+    return [] unless Dutiful::Config.osx?
+
     Array(content[:default]).map { |default| Dutiful::ApplicationDefault.new default }
   end
 

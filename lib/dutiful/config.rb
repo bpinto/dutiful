@@ -12,6 +12,10 @@ class Dutiful::Config
     end
   end
 
+  def self.osx?
+    `uname -s`.strip == 'Darwin'
+  end
+
   private
 
   def self.content

@@ -1,6 +1,6 @@
 require 'support/feature'
 
-RSpec.describe 'Restore defaults:' do
+RSpec.describe 'Restore defaults:', if: Dutiful::Config.osx? do
   it 'restores a single default' do
     content = nil
 

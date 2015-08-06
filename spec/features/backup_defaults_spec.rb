@@ -1,6 +1,6 @@
 require 'support/feature'
 
-RSpec.describe 'Backup defaults:' do
+RSpec.describe 'Backup defaults:', if: Dutiful::Config.osx? do
   it 'creates the dutiful folder' do
     with_application defaults: 'com.dutiful test green' do
       expect {
