@@ -44,6 +44,26 @@ However, if you do want to override its default settings, check out the [docs](d
  - [Dropbox](https://www.dropbox.com)
  - [iCloud](https://www.icloud.com)
  - Any folder on your computer.
+
+## Supported Applications
+ - [Alfred](http://www.alfredapp.com)
+ - [Brew](http://brew.sh)
+ - [Bundler](http://bundler.io)
+ - [Dash](https://kapeli.com/dash)
+ - [Dutiful](https://github.com/bpinto/dutiful/)
+ - [Fish](http://fishshell.com)
+ - [Git](https://git-scm.com)
+ - [iTerm2](https://iterm2.com)
+ - [Oh My Zsh](http://ohmyz.sh)
+ - [OSX Screencapture](db/osx-screencapture.toml)
+ - [Popcorn-Time](https://popcorntime.io)
+ - [RubyMine](https://www.jetbrains.com/ruby/)
+ - [The Silver Searcher](http://geoff.greer.fm/ag/)
+ - [tmux](https://tmux.github.io)
+ - [tmuxline.vim](https://github.com/edkolev/tmuxline.vim)
+ - [Vim](http://www.vim.org)
+ - [z](https://github.com/rupa/z)
+ - [Zsh](http://www.zsh.org)
  
 ## License
 
