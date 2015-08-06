@@ -5,6 +5,7 @@ module Dutiful
 end
 
 require 'dutiful/application'
+require 'dutiful/application_default'
 require 'dutiful/application_file'
 require 'dutiful/commands'
 require 'dutiful/config'

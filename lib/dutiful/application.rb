@@ -3,8 +3,12 @@ class Dutiful::Application
     @path = path
   end
 
+  def defaults
+    Array(content[:default]).map { |default| Dutiful::ApplicationDefault.new default }
+  end
+
   def files
-    content[:file].map { |file| Dutiful::ApplicationFile.new file[:path], file[:condition] }
+    Array(content[:file]).map { |file| Dutiful::ApplicationFile.new file[:path], file[:condition] }
   end
 
   def name
@@ -35,14 +39,30 @@ class Dutiful::Application
         yield file if block_given?
       end
     end
+
+    defaults.each do |default|
+      if default.should_sync?
+        result = if backup_only && default.exist?
+                   default.backup
+                 elsif restore_only && default.has_backup?
+                   default.restore
+                 else
+                   default.sync
+                 end
+
+        yield default, result if block_given?
+      else
+        yield default if block_given?
+      end
+    end
   end
 
   def exist?
-    files.any? &:exist?
+    files.any?(&:exist?) || defaults.any?(&:exist?)
   end
 
   def has_backup?
-    files.any? &:has_backup?
+    files.any?(&:has_backup?) || defaults.any?(&:has_backup?)
   end
 
   def should_sync?
@@ -50,7 +70,7 @@ class Dutiful::Application
   end
 
   def synced?
-    files.all? &:synced?
+    files.all?(&:synced?) || defaults.any?(&:synced?)
   end
 
   def self.all

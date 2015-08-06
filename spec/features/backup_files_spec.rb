@@ -1,6 +1,6 @@
 require 'support/feature'
 
-RSpec.describe 'Backup' do
+RSpec.describe 'Backup files:' do
   it 'creates the dutiful folder' do
     with_application files: '.dutiful.test' do
       expect {
@@ -19,7 +19,7 @@ RSpec.describe 'Backup' do
     FileUtils.remove_entry File.expand_path('~/dutiful-test-folder')
   end
 
-  it 'all files' do
+  it 'backup all files' do
     with_application files: '.dutiful.test' do
       expect {
         Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
@@ -27,7 +27,7 @@ RSpec.describe 'Backup' do
     end
   end
 
-  it 'all files that meet the conditions' do
+  it 'backup all files that meet the conditions' do
     file = {
       path: '.dutiful.test',
       condition: { command: 'true', expected_status: 0 }

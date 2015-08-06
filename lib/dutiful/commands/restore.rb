@@ -12,9 +12,9 @@ class Dutiful::Command::Restore < Clamp::Command
       application.restore do |file, result|
         if result
           if result.success?
-            Dutiful::Logger.success "  #{file.path} ✔"
+            Dutiful::Logger.success "  #{file.name} ✔"
           else
-            Dutiful::Logger.error "  #{file.path} ✖ - #{result.error}"
+            Dutiful::Logger.error "  #{file.name} ✖ - #{result.error}"
           end
         elsif verbose?
           Dutiful::Logger.info "  #{file}"
