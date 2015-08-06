@@ -38,7 +38,7 @@ class Dutiful::ApplicationDefault
   end
 
   def name
-    "#{@domain} #{@key}"
+    @key
   end
 
   def value

@@ -1,0 +1,20 @@
+[application]
+name = 'OSX Global Domain'
+
+[[default]]
+description = 'Disable press-and-hold for keys in favor of key repeat'
+domain      = 'NSGlobalDomain'
+key         = 'ApplePressAndHoldEnabled'
+type        = '-bool'
+
+[[default]]
+description = 'Set the keyboard repeat rate'
+domain      = 'NSGlobalDomain'
+key         = 'KeyRepeat'
+type        = '-int'
+
+[[default]]
+description = 'Set the keyboard repeat delay'
+domain      = 'NSGlobalDomain'
+key         = 'InitialKeyRepeat'
+type        = '-int'
