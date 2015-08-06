@@ -18,29 +18,25 @@ RSpec.describe 'Backup defaults:', if: Dutiful::Config.osx? do
   end
 
   it 'backup a single default' do
-    content = nil
-
     with_application defaults: 'com.dutiful test green' do
       expect {
         Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
       }.to change { File.exist? "#{Dutiful::Config.storage.path}/defaults/com.dutiful/test" }.to true
 
-      File.open("#{Dutiful::Config.storage.path}/defaults/com.dutiful/test") { |file| content = file.read }
-      expect(content.strip).to eq 'green'
+      content = File.read("#{Dutiful::Config.storage.path}/defaults/com.dutiful/test")
+      expect(content).to eq 'green'
     end
   end
 
   it 'backup multiple defaults' do
-    content = nil
-
     with_application defaults: ['com.dutiful test green', 'com.dutiful test2 red'] do
       Dutiful::Command::Main.run 'dutiful', ['backup', '-q']
 
-      File.open("#{Dutiful::Config.storage.path}/defaults/com.dutiful/test") { |file| content = file.read }
-      expect(content.strip).to eq 'green'
+      content = File.read("#{Dutiful::Config.storage.path}/defaults/com.dutiful/test")
+      expect(content).to eq 'green'
 
-      File.open("#{Dutiful::Config.storage.path}/defaults/com.dutiful/test2") { |file| content = file.read }
-      expect(content.strip).to eq 'red'
+      content = File.read("#{Dutiful::Config.storage.path}/defaults/com.dutiful/test2")
+      expect(content).to eq 'red'
     end
   end
 

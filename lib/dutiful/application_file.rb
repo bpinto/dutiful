@@ -67,12 +67,12 @@ class Dutiful::ApplicationFile
 
   def meets_conditions?
     if has_condition?
-      output = `#{command}`
+      output = `#{command}`.strip
 
       if expected_status
         $?.exitstatus == expected_status
       else
-        $?.success? && output.strip == expected_output
+        $?.success? && output == expected_output
       end
     else
       true

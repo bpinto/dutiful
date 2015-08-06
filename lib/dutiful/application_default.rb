@@ -5,6 +5,7 @@ class Dutiful::ApplicationDefault
     @description = hash[:description]
     @domain      = hash[:domain]
     @key         = hash[:key]
+    @type        = hash[:type]
   end
 
   def backup
@@ -17,14 +18,20 @@ class Dutiful::ApplicationDefault
   end
 
   def backup_value
-    value = nil
-    File.open(backup_path) { |file| value = file.read }
+    File.read(backup_path)
+  end
 
-    value
+  def parsed_backup_value
+    case @type
+    when '-bool'
+      backup_value == '1' ? true : false
+    else
+      backup_value
+    end
   end
 
   def restore
-    `defaults write #{@domain} #{@key} #{backup_value}`
+    `defaults write #{@domain} #{@key} #{@type} #{parsed_backup_value}`
     Result.new nil, true
   rescue => ex
     Result.new ex.message, false
@@ -35,12 +42,12 @@ class Dutiful::ApplicationDefault
   end
 
   def value
-    @value ||= `defaults read #{@domain} #{@key} 2>/dev/null`
+    @value ||= `defaults read #{@domain} #{@key} 2>/dev/null`.strip
   end
 
   def exist?
     @exists ||= begin
-                   @value = `defaults read #{@domain} #{@key} 2>/dev/null`
+                   value
                    $?.success?
                  end
   end

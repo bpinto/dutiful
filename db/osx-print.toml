@@ -1,0 +1,8 @@
+[application]
+name = 'OSX Print'
+
+[[default]]
+description = 'Automatically quit printer app once the print jobs complete'
+domain      = 'com.apple.print.PrintingPrefs'
+key         = '"Quit When Finished"'
+type        = '-bool'
