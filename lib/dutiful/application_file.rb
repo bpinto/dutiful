@@ -103,7 +103,7 @@ class Dutiful::ApplicationFile
     elsif has_backup?
       "#{path} (pending restore)".yellow
     else
-      "#{path} does not exist (skipping)".yellow
+      "#{path} does not exist (skipping)".light_black
     end
   end
 end

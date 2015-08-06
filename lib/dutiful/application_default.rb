@@ -71,7 +71,7 @@ class Dutiful::ApplicationDefault
     elsif has_backup?
       "#{name} (pending restore)".yellow
     else
-      "#{name} does not exist (skipping)".yellow
+      "#{name} does not exist (skipping)".light_black
     end
   end
 
