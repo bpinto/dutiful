@@ -7,7 +7,7 @@ class Dutiful::Command::Backup < Clamp::Command
     Dutiful::Logger.info "Storage: #{Dutiful::Config.storage.name}\n\n"
 
     Dutiful::Application.each do |application|
-      Dutiful::Logger.info "#{application.name}:\n" if application.should_sync? && application.exist? || verbose?
+      Dutiful::Logger.info "#{application.name}:\n" if application.exist? || verbose?
 
       application.backup do |file, result|
         if result

@@ -5,6 +5,14 @@ class Dutiful::ApplicationFile
     @condition, @path = condition, path
   end
 
+  def backup
+    Dutiful::Config.storage.backup self
+  end
+
+  def restore
+    Dutiful::Config.storage.restore self
+  end
+
   def backup_path
     Dutiful::Config.storage.path path
   end
@@ -46,11 +54,11 @@ class Dutiful::ApplicationFile
   end
 
   def exist?
-    File.exist? full_path
+    File.exist?(full_path) && meets_conditions?
   end
 
   def has_backup?
-    Dutiful::Config.storage.exist? self
+    Dutiful::Config.storage.exist?(self) && meets_conditions?
   end
 
   def has_condition?
@@ -71,12 +79,12 @@ class Dutiful::ApplicationFile
     end
   end
 
-  def should_sync?
-    (exist? || has_backup?) && meets_conditions?
+  def tracked?
+    exist? || has_backup?
   end
 
-  def synced?
-    has_backup? && Dutiful::Config.storage.synced?(self)
+  def in_sync?
+    has_backup? && Dutiful::Config.storage.in_sync?(self)
   end
 
   def to_s
@@ -84,7 +92,7 @@ class Dutiful::ApplicationFile
 
     if exist?
       if has_backup?
-        if synced?
+        if in_sync?
           "#{path} ✔".green
         else
           "#{path} (modified)".yellow

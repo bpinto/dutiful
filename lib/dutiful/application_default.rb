@@ -49,18 +49,18 @@ class Dutiful::ApplicationDefault
     File.exist? backup_path
   end
 
-  def should_sync?
+  def tracked?
     exist? || has_backup?
   end
 
-  def synced?
+  def in_sync?
     value == backup_value
   end
 
   def to_s
     if exist?
       if has_backup?
-        if synced?
+        if in_sync?
           "#{name} ✔".green
         else
           "#{name} (modified)".yellow

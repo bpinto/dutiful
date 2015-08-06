@@ -18,43 +18,21 @@ class Dutiful::Application
   end
 
   def backup(&block)
-    sync backup_only: true, &block
-  end
-
-  def restore(&block)
-    sync restore_only: true, &block
-  end
-
-  def sync(backup_only: false, restore_only: false)
-    files.each do |file|
-      if file.should_sync?
-        result = if backup_only && file.exist?
-                   Dutiful::Config.storage.backup(file)
-                 elsif restore_only && file.has_backup?
-                   Dutiful::Config.storage.restore(file)
-                 else
-                   Dutiful::Config.storage.sync(file)
-                 end
-
-        yield file, result if block_given?
+    (files + defaults).each do |file|
+      if file.exist?
+        yield file, file.backup if block_given?
       else
         yield file if block_given?
       end
     end
+  end
 
-    defaults.each do |default|
-      if default.should_sync?
-        result = if backup_only && default.exist?
-                   default.backup
-                 elsif restore_only && default.has_backup?
-                   default.restore
-                 else
-                   default.sync
-                 end
-
-        yield default, result if block_given?
+  def restore(&block)
+    (files + defaults).each do |file|
+      if file.has_backup?
+        yield file, file.restore if block_given?
       else
-        yield default if block_given?
+        yield file if block_given?
       end
     end
   end
@@ -67,12 +45,8 @@ class Dutiful::Application
     files.any?(&:has_backup?) || defaults.any?(&:has_backup?)
   end
 
-  def should_sync?
+  def tracked?
     exist? || has_backup?
-  end
-
-  def synced?
-    files.all?(&:synced?) || defaults.any?(&:synced?)
   end
 
   def self.all

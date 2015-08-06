@@ -34,10 +34,6 @@ List all preference files and their current sync status.
 
 Restore all preference files.
 
-`dutiful sync`
-
-Sync all preference files.
-
 ## Customization
 
 Dutiful detects the preference files on your computer and keeps them in sync automatically, so you don't need to do anything prior to its usage.

@@ -7,7 +7,7 @@ class Dutiful::Command::Restore < Clamp::Command
     Dutiful::Logger.info "Storage: #{Dutiful::Config.storage.name}\n\n"
 
     Dutiful::Application.each do |application|
-      Dutiful::Logger.info "#{application.name}:\n" if application.should_sync? && application.has_backup? || verbose?
+      Dutiful::Logger.info "#{application.name}:\n" if application.has_backup? || verbose?
 
       application.restore do |file, result|
         if result

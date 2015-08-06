@@ -56,7 +56,7 @@ class Dutiful::Storage
     end
   end
 
-  def synced?(file)
+  def in_sync?(file)
     if file.directory?
       Dir.glob("#{file.full_path}*").all? do |file_path|
         filename = File.basename(file_path)
