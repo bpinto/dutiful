@@ -60,6 +60,7 @@ If you would like to customize the backup folder or the preference files that ar
  - [Git](https://git-scm.com)
  - [iTerm2](https://iterm2.com)
  - [Oh My Zsh](http://ohmyz.sh)
+ - [OSX Finder](db/osx-finder.toml)
  - [OSX Global Domain](db/osx-global-domain.toml)
  - [OSX Print](db/osx-print.toml)
  - [OSX Screencapture](db/osx-screencapture.toml)

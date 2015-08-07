@@ -1,0 +1,8 @@
+[application]
+name = 'OSX Finder'
+
+[[default]]
+description = 'Set default view mode for Finder: `icnv`, `clmv`, `Flwv`, `Nlsv`'
+domain      = 'com.apple.finder'
+key         = 'FXPreferredViewStyle'
+type        = '-string'
