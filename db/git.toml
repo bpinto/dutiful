@@ -3,4 +3,6 @@ name = 'Git'
 
 [[file]]
 path = '.gitconfig'
+
+[[file]]
 path = '.gitignore'
