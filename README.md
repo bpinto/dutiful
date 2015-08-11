@@ -66,6 +66,7 @@ If you would like to customize the backup folder or the preference files that ar
  - [OSX Screencapture](db/osx-screencapture.toml)
  - [Popcorn-Time](https://popcorntime.io)
  - [RubyMine](https://www.jetbrains.com/ruby/)
+ - [Rbenv](https://github.com/sstephenson/rbenv)
  - [The Silver Searcher](http://geoff.greer.fm/ag/)
  - [tmux](https://tmux.github.io)
  - [tmuxline.vim](https://github.com/edkolev/tmuxline.vim)
